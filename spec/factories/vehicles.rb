@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :vehicle do
-    identifier { "MyString" }
+    identifier { Faker::Vehicle.license_plate }
   end
 end

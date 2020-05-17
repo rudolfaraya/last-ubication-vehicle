@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :waypoint do
-    vehicle { nil }
-    sent_at { "2020-05-17 18:02:37" }
-    latitude { 1.5 }
-    longitude { 1.5 }
+    vehicle
+    sent_at { Faker::Time.between(from: DateTime.now - 1.year, to: DateTime.now) }
+    latitude { Faker::Address.latitude }
+    longitude { Faker::Address.longitude }
   end
 end
