@@ -10,10 +10,6 @@ class WaypointsController < ApplicationController
 
   private
 
-  def set_vehicle
-    @vehicle = Vehicle.find_or_create_by(name: params[:vehicle_identifier])
-  end
-
   def coordinates_params
     params.permit(:latitude, :longitude, :sent_at, :vehicle_identifier)
   end
