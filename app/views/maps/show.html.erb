@@ -8,7 +8,7 @@
 <div style='width: 1280px;'>
   <div id="map" style='width: 1280px; height: 720px;'></div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN7Cb-ItP3LVw8pj5frLH86zLYpAq1k8s&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :maps, :api_key) %>&callback=initMap" async defer></script>
 <div><%= @hash.to_json%></div>
 <script>
     var map;
