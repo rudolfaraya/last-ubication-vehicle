@@ -1,0 +1,20 @@
+version: '3'
+volumes:
+  redis-data:
+  db-postgres:
+
+services:
+  redis:
+    image: redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    command: redis-server
+    volumes:
+      - redis-data:/data
+
+#  db:
+#    image: postgres:12.0-alpine
+#      volumes:
+#        - db-postgres:/var/lib/postgresql/data
+
+

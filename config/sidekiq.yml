@@ -1,0 +1,5 @@
+:logfile: ./log/sidekiq.log
+:pidfile: ./tmp/pids/sidekiq.pid
+:queues:
+  - [waypoint, 10]
+  - map

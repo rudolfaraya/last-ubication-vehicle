@@ -1,5 +1,5 @@
 class MapsController < ApplicationController
   def show
-    @hash = MapService.new.waypoint_hash
+    @hash = MapService.new.redis_load
   end
 end

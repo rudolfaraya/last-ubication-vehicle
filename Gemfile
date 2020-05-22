@@ -47,6 +47,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
   gem 'webdrivers'
 end
@@ -55,7 +56,7 @@ end
 gem 'tzinfo-data'
 
 gem 'awesome_print'
-gem 'sidekiq'
-gem 'sidekiq_monitor'
-gem 'jquery-rails'
 gem 'coffee-rails'
+gem 'httparty'
+gem 'jquery-rails'
+gem 'sidekiq'
