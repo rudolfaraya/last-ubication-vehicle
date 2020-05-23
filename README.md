@@ -102,6 +102,8 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 1. Clone repository
 ```
 $ git clone git@github.com:rudolfaraya/last-ubication-vehicle.git
+$ bundle install
+$ yarn install --check-files
 ```
 2. Copy master.key on repository: config/master.key. To recreate key you can use `rails credentials:edit` or follow the next [instructions](https://gist.github.com/db0sch/19c321cbc727917bc0e12849a7565af9)
 - Content:
@@ -145,6 +147,11 @@ $ bundle exec rspec
 
 7. Makefile instructions:
 ```
+# Up all background services
+sidekiq:
+	make up
+	make db-setup
+	bundle exec sidekiq
 # Up redis and postgres container services
 up: 
 	docker-compose up -d

@@ -2,6 +2,7 @@ sidekiq:
 	make up
 	make db-setup
 	bundle exec sidekiq
+	yarn install --check-files
 up:
 	docker-compose up -d
 down:
