@@ -1,3 +1,7 @@
+sidekiq:
+	make up
+	make db-setup
+	bundle exec sidekiq
 up:
 	docker-compose up -d
 down:

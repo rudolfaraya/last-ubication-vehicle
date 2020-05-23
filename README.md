@@ -117,14 +117,15 @@ postgres:
 ```
 $ make up
 ```
-4. Run server:
-```
-$ rails s
-```
-5. Run Sidekiq (for asynchronous tasks) 
+4. Run Sidekiq (for asynchronous tasks) 
 ```
 $ bundle exec sidekiq
 ```
+5. Run Rails Server (for asynchronous tasks) 
+```
+$ rails s
+```
+* Otherwise you can use: `m̀ake sidekiq` (resume step 3-4 and check database)
 - Access to map on:
 ```
 http://localhost:3000/show
