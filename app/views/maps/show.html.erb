@@ -9,13 +9,12 @@
   <div id="map" style='width: 1280px; height: 720px;'></div>
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :maps, :api_key) %>&callback=initMap" async defer></script>
-<div><%= @hash.to_json%></div>
 <script>
     var map;
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: -34.397, lng: 150.644},
-            zoom: 2
+            zoom: 3
         });
 
         var markers = <%= raw @hash.to_json %>;
@@ -26,6 +25,7 @@
                 title: marker['identifier']
             });
         });
+
     }
 </script>
 </body>

@@ -12,9 +12,11 @@ services:
     volumes:
       - redis-data:/data
 
-#  db:
-#    image: postgres:12.0-alpine
-#      volumes:
-#        - db-postgres:/var/lib/postgresql/data
+  db:
+    image: postgres:12.0-alpine
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - db-postgres:/var/lib/postgresql/data
 
 

@@ -1,7 +1,6 @@
 class WaypointService
   def save_coordinate(coordinates)
     response = {}
-    debugger
     if coordinates['vehicle_identifier']
       identifier = coordinates['vehicle_identifier']
       latitude = coordinates['latitude']

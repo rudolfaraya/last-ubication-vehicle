@@ -6,6 +6,10 @@ class WaypointWorker
 
   def perform(identifier, latitude, longitude, sent_at)
     vehicle = Vehicle.find_or_create_by(identifier: identifier)
+    raise 'Latitude not provided' if latitude.nil?
+    raise 'Longitude not provided' if longitude.nil?
+    raise 'Sent_at not provided' if sent_at.nil?
+
     waypoint_updated = WaypointService.new.check_waypoint(vehicle, latitude, longitude, sent_at)
     if waypoint_updated
       update_last_waypoint(waypoint_updated, 'updated')

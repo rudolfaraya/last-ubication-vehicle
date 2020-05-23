@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2020_05_22_122141) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "jobs", force: :cascade do |t|
-    t.integer "waypoint_id", null: false
+    t.bigint "waypoint_id", null: false
     t.boolean "error"
     t.string "message"
     t.datetime "created_at", precision: 6, null: false
@@ -51,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_05_22_122141) do
   end
 
   create_table "waypoints", force: :cascade do |t|
-    t.integer "vehicle_id", null: false
+    t.bigint "vehicle_id", null: false
     t.datetime "sent_at"
     t.float "latitude"
     t.float "longitude"
