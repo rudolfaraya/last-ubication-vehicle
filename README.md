@@ -28,11 +28,12 @@ If no vehicle exists with that identifier, create it.
 
 
 # Basic configuration
-- Ruby 2.6.5
+- Ruby 2.5.1
 - Ruby on Rails 6.0.3
 - Postgres database
 - Sidekiq
 - Redis
+- Docker & Docker-Compose
 
 # Install Instructions on Ubuntu 18.04
 
@@ -51,7 +52,7 @@ $ sudo apt-get install rvm
 
 3. Install ruby with RVM
 ```
-$ rvm install 2.6.5
+$ rvm install 2.5.1
 ```
 
 ***
@@ -105,29 +106,20 @@ $ git clone git@github.com:rudolfaraya/last-ubication-vehicle.git
 $ bundle install
 $ yarn install --check-files
 ```
-2. Copy master.key on repository: config/master.key. To recreate key you can use `rails credentials:edit` or follow the next [instructions](https://gist.github.com/db0sch/19c321cbc727917bc0e12849a7565af9)
+2. Set environment variables on .env
 - Content:
 ```
-google:
-  maps:
-    api_key: INSERT_YOUR_GOOGLE_MAPS_API_KEY
-postgres:
-  username: postgres
-  password: docker
+DATABASE_NAME=last_ubication_development
+DATABASE_USER=admin_test
+DATABASE_PASSWORD=admin_test
+DATABASE_HOST=database
+REDIS_HOST=redis
+GOOGLE_MAPS_API_KEY=
 ```
-3. Run redis and database container services:
+3. Run database configuration (db:setup, db:migrate):
 ```
-$ make up
+$ make db
 ```
-4. Run Sidekiq (for asynchronous tasks) 
-```
-$ bundle exec sidekiq
-```
-5. Run Rails Server (for asynchronous tasks) 
-```
-$ rails s
-```
-* Otherwise you can use: `m̀ake sidekiq` (resume step 3-4 and check database)
 - Access to map on:
 ```
 http://localhost:3000/show
@@ -138,43 +130,40 @@ http://localhost:3000/show
  http://localhost:3000/sidekiq
  ```
 ![](https://i.imgur.com/NeNGsjZl.png)
-6. Others
+4. Others
 
 - Run tests:
 ```
-$ bundle exec rspec
+$ make test
+```
+- Show logs:
+```
+$ make logs
 ```
 
-7. Makefile instructions:
+5. Makefile instructions:
 ```
-# Up all background services
-sidekiq:
-	make up
-	make db-setup
-	bundle exec sidekiq
-# Up redis and postgres container services
-up: 
+up:
 	docker-compose up -d
-# Down redis and postgres container services
-down: 
+down:
 	docker-compose down
-# Rspec Testing
-test: 
-	bundle exec rspec
-# Create development and test database
-db-create:
-	rails db:create
-db-setup:
-	rails db:setup
-# Clean and drop database and volumes
-db-clear: 
-	rails db:drop
+rails-console:
+	docker-compose exec app bundle exec rails console
+ssh-container:
+	docker-compose exec app /bin/sh
+logs:
+	docker-compose logs -f
+test:
+	docker-compose exec app bundle exec rspec
+db:
+	docker-compose exec app bundle exec rake db:setup db:migrate
+db-clear:
 	make down
-	docker volume rm last-ubication-vehicle_db-postgres last-ubication-vehicle_redis-data
+	docker volume rm last-ubication-vehicle_db_data last-ubication-vehicle_redis_data
 ```
-8. Generate random data:
+6. Generate random data:
 ```
-$ rails c # Open a Rails console
+$ make rails-console # Open a Rails console
 # Generate v number of vehicles and w number of waypoint of each of them
 $ MapService.new.random_data(v, w) 
 

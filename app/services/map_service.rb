@@ -2,7 +2,7 @@ class MapService
   def initialize
     begin
       puts 'Connecting to Redis...'
-      @redis = Redis.new
+      @redis = Redis.new(url: "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/2")
       @redis.inspect
     rescue Errno::ECONNREFUSED => e
       puts 'Error: Redis server unavailable. Shutting down...'

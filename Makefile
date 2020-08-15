@@ -1,19 +1,17 @@
-sidekiq:
-	make up
-	make db-setup
-	bundle exec sidekiq
-	yarn install --check-files
 up:
 	docker-compose up -d
 down:
 	docker-compose down
+rails-console:
+	docker-compose exec app bundle exec rails console
+ssh-container:
+	docker-compose exec app /bin/sh
+logs:
+	docker-compose logs -f
 test:
-	bundle exec rspec
-db-create:
-	rails db:create
-db-setup:
-	rails db:setup
+	docker-compose exec app bundle exec rspec
+db:
+	docker-compose exec app bundle exec rake db:setup db:migrate
 db-clear:
-	rails db:drop
 	make down
-	docker volume rm last-ubication-vehicle_db-postgres last-ubication-vehicle_redis-data
+	docker volume rm last-ubication-vehicle_db_data last-ubication-vehicle_redis_data
