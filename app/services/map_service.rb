@@ -2,7 +2,7 @@ class MapService
   def initialize
     begin
       puts 'Connecting to Redis...'
-      @redis = Redis.new
+      @redis = Redis.new(url: "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/2")
       @redis.inspect
     rescue Errno::ECONNREFUSED => e
       puts 'Error: Redis server unavailable. Shutting down...'
@@ -54,10 +54,10 @@ class MapService
       vehicle = FactoryBot.create(:vehicle)
       waypoint_number.times.each do
         body = {
-            "latitude" => Faker::Address.latitude,
-            "longitude"=> Faker::Address.longitude,
-            "sent_at" => Faker::Time.between(from: DateTime.now - 1.year, to: DateTime.now),
-            "vehicle_identifier" => vehicle.identifier
+          "latitude" => Faker::Address.latitude,
+          "longitude"=> Faker::Address.longitude,
+          "sent_at" => Faker::Time.between(from: DateTime.now - 1.year, to: DateTime.now),
+          "vehicle_identifier" => vehicle.identifier
         }
         HTTParty.post(url, body: body)
       end

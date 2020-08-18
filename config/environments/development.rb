@@ -28,6 +28,18 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Connection Pool Redis configuration
+  # Redis Credentials
+  redis_pool = ConnectionPool.new(size: 100) { Redis.new(url: "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/1") }
+
+  Sidekiq.configure_server do |config|
+    config.redis = redis_pool
+  end
+
+  Sidekiq.configure_client do |config|
+    config.redis = redis_pool
+  end
+
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
@@ -59,13 +71,4 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  # Sidekiq Redis configuration
-  Sidekiq.configure_client do |config|
-    config.redis = { :url => 'redis://localhost:6379/0' }
-  end
-
-  Sidekiq.configure_server do |config|
-    config.redis = { :url => 'redis://localhost:6379/0' }
-  end
 end

@@ -1,0 +1,2 @@
+CREATE USER admin_test;
+ALTER USER admin_test WITH SUPERUSER;

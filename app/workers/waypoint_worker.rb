@@ -10,24 +10,16 @@ class WaypointWorker
     raise 'Longitude not provided' if longitude.nil?
     raise 'Sent_at not provided' if sent_at.nil?
 
-    waypoint_updated = WaypointService.new.check_waypoint(vehicle, latitude, longitude, sent_at)
+    waypoint_updated = Waypoint.check_waypoint(vehicle, latitude, longitude, sent_at)
     if waypoint_updated
-      update_last_waypoint(waypoint_updated, 'updated')
+      Waypoint.update_last_waypoint(waypoint_updated, 'updated')
     else
-      response = WaypointService.new.new_waypoint(vehicle, latitude, longitude, sent_at)
+      response = Waypoint.new_waypoint(vehicle, latitude, longitude, sent_at)
       if response.key?(:info)
-        update_last_waypoint(response[:info], 'created')
+        Waypoint.update_last_waypoint(response[:info], 'created')
       else
         raise 'Invalid Waypoint parameters'
       end
     end
-  end
-
-  def update_last_waypoint(waypoint, message)
-    map = MapService.new
-    Job.create(waypoint_id: waypoint.id,
-               error: false,
-               message: message)
-    map.redis_update_waypoint(waypoint.vehicle.last_waypoint)
   end
 end
