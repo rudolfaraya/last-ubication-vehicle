@@ -1,3 +1,5 @@
+build:
+	docker-compose build
 up:
 	docker-compose up -d
 down:
@@ -8,8 +10,8 @@ ssh-container:
 	docker-compose exec app /bin/sh
 logs:
 	docker-compose logs -f
-test:
-	docker-compose exec app bundle exec rspec
+run-tests:
+	docker-compose exec app bundle exec rake spec
 db:
 	docker-compose exec app bundle exec rake db:setup db:migrate
 db-clear:

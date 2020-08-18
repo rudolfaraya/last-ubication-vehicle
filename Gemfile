@@ -37,6 +37,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 4.0.0'
+  gem 'shoulda-matchers'
+
 end
 
 group :development do
@@ -51,7 +53,6 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'rspec-sidekiq'
-  gem 'shoulda-matchers'
   gem 'webdrivers'
 end
 

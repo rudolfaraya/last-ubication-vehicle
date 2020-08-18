@@ -30,7 +30,7 @@ Rails.application.configure do
 
   # Connection Pool Redis configuration
   # Redis Credentials
-  redis_pool = ConnectionPool.new(size: 50) { Redis.new(url: "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/1") }
+  redis_pool = ConnectionPool.new(size: 100) { Redis.new(url: "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/1") }
 
   Sidekiq.configure_server do |config|
     config.redis = redis_pool
