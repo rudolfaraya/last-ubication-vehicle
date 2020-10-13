@@ -11,7 +11,7 @@ gem 'pg'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem "puma", ">= 4.3.5"
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -64,3 +64,6 @@ gem 'coffee-rails'
 gem 'httparty'
 gem 'jquery-rails'
 gem 'sidekiq'
+# Kuby Deployment
+gem 'kuby-core', '~> 0.11'
+gem 'kuby-linode', '< 1.0'

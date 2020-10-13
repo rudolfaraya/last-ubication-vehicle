@@ -134,7 +134,7 @@ http://localhost:3000/show
 
 - Run tests:
 ```
-$ make test
+$ make run-tests
 ```
 - Show logs:
 ```

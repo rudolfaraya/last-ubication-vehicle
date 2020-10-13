@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   app:
+    image: rudolfaraya/last-ubication-vehicle-app
     build:
       context: .
       dockerfile: Dockerfile
@@ -30,6 +31,7 @@ services:
       - redis_data
 
   sidekiq:
+    image: rudolfaraya/last-ubication-vehicle-sidekiq
     build:
       context: .
       dockerfile: Dockerfile

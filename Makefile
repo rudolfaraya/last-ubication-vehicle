@@ -1,9 +1,15 @@
+USERNAME = rudolfaraya
+PROJECT_NAME = $(USERNAME)/last-ubication-vehicle
+TAG = latest
+
 build:
 	docker-compose build
 up:
 	docker-compose up -d
 down:
 	docker-compose down
+push:
+	docker push $(PROJECT_NAME)-app:$(TAG)
 rails-console:
 	docker-compose exec app bundle exec rails console
 ssh-container:
@@ -16,4 +22,4 @@ db:
 	docker-compose exec app bundle exec rake db:setup db:migrate
 db-clear:
 	make down
-	docker volume rm last-ubication-vehicle_db_data last-ubication-vehicle_redis_data
+	docker volume rm $(PROJECT_NAME)_db_data $(PROJECT_NAME)_redis_data
