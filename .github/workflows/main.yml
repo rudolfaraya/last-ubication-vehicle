@@ -42,9 +42,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1.110.0
-        with:
-          ruby-version: 2.5.3
+#        uses: ruby/setup-ruby@v1.110.0
+#        with:
+#          ruby-version: 2.5.3
 
       - name: Install Dependencies
         run: |
