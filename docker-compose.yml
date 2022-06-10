@@ -17,6 +17,9 @@ services:
     env_file: .env
     environment:
       RAILS_ENV: development
+    entrypoint: ./entrypoints/docker-entrypoint.sh
+    stdin_open: true
+    tty: true
 
   database:
     image: postgres:12.1

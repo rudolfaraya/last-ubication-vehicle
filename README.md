@@ -109,16 +109,17 @@ $ yarn install --check-files
 2. Set environment variables on .env
 - Content:
 ```
-DATABASE_NAME=last_ubication_development
-DATABASE_USER=admin_test
-DATABASE_PASSWORD=admin_test
-DATABASE_HOST=database
+POSTGRES_DATABASE=last_ubication_development
+POSTGRES_USER=admin_test
+POSTGRES_PASSWORD=admin_test
+POSTGRES_HOST=database
+POSTGRES_PORT=5432
 REDIS_HOST=redis
 GOOGLE_MAPS_API_KEY=
 ```
 3. Run database configuration (db:setup, db:migrate):
 ```
-$ make db
+$ make db-setup
 ```
 - Access to map on:
 ```
@@ -134,7 +135,7 @@ http://localhost:3000/show
 
 - Run tests:
 ```
-$ make test
+$ make run-tests
 ```
 - Show logs:
 ```
@@ -143,19 +144,24 @@ $ make logs
 
 5. Makefile instructions:
 ```
+build:
+	docker-compose build
 up:
 	docker-compose up -d
 down:
 	docker-compose down
+restart:
+	make down
+	make up
 rails-console:
 	docker-compose exec app bundle exec rails console
 ssh-container:
-	docker-compose exec app /bin/sh
+	docker-compose exec app /bin/bash
 logs:
 	docker-compose logs -f
-test:
-	docker-compose exec app bundle exec rspec
-db:
+run-tests:
+	docker-compose exec app bundle exec rake spec
+db-setup:
 	docker-compose exec app bundle exec rake db:setup db:migrate
 db-clear:
 	make down
