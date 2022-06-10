@@ -42,20 +42,23 @@ jobs:
        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: Set up Ruby
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '2.5.3'
+#      - uses: ruby/setup-ruby@v1
+#        with:
+#          ruby-version: '2.5.3'
 
-      - name: Install Dependencies
+      - name: Update RubyGems and install bundler
         run: |
           gem update --system 3.2.3
           gem install bundler -v 2.3.5
           bundle config build.nokogiri --use-system-libraries
-          yarn install --check-files --ignore-engines
 
       - name: Install Gems
         run: |
           bundle install
+
+      - name: Install yarn
+        run: |
+          yarn install --check-files --ignore-engines
 
       - name: Prepare Database
         run: |
